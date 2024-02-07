@@ -1,0 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap&v=1");
+
+/* @font-face {
+  font-family: 'Poppins';
+  src: url('../public/font/Poppins-Regular.ttf') format('ttf');
+} */
+
+:root {
+  --primary: #4285f4;
+  --secondary: #888888;
+  --text: #ffffff;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* font-family: "Poppins", Arial, Helvetica, sans-serif; */
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.prompt-screen-height {
+  height: 85%;
+}
+
+.doc-preview {
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.long-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    transparent 40%,
+    var(--primary)
+  );
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  position: absolute;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+.loader::before {
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  z-index: 1000;
+}
+
+.loader::after {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    transparent 40%,
+    var(--primary)
+  );
+  z-index: 1;
+  filter: blur(30px);
+}
+
+
+/* Blinking Cursor to simulate typing effect */
+
+
+.blinking-cursor::after {
+  content: '|';
+  display: inline-block;
+  animation: blink 0.7s infinite;
+  opacity: 1;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+/* Loading Spinners */
+
+.loader-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ffffff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+} 
+
+.disable-drag {
+  user-drag: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+}
+
+/* Toggle Button for Dark and Light mode */
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.overflow-content {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.checkbox-label {
+  background-color: #111;
+  width: 50px;
+  height: 26px;
+  border-radius: 50px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox-label .ball {
+  background-color: #fff;
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  left: 2px;
+  top: 2px;
+  border-radius: 50%;
+  transition: transform 0.2s linear;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(24px);
+}
+
+
