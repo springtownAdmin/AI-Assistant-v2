@@ -105,60 +105,16 @@ const InformaBot = () => {
         const reqBody = { "csv_file": selectedOption };
 
         const res = await API.post('/get_csv_files', reqBody);
+        const columns: any = Object.keys(res.data[0]);
 
-        console.log(res.data);
+        const columnsList = columns.map((v:any) => ({
+          accessorKey: v,
+          header: v
+        }));
 
-        const newData = res.data.columns.map((data: any, index: any) => {
+        setColumnData(columnsList)
 
-          return {
-            accessorKey: data, //access nested data with dot notation
-            header: data,
-            size: 10
-          }
-
-        })
-
-        const columnsList = Object.keys(res.data.response);
-        const col_len = res.data.response[columnsList[0]].length;
-
-        console.log(res.data.response)
-        const newArr = [];
-
-        for(let k = 0; k < columnsList[0].length; k++) {
-
-          const obj = {};
-  
-          for(let i = 0; i < columnsList.length; i++) {
-  
-            // let obj = {};
-            // for(let j = 0; j < columnsList.length; j++) {
-  
-              obj[columnsList[i]] = res.data.response[columnsList[i]][k]
-              // console.log(res.data.response[columnsList[i]][0])
-              // newArr.push(res.data.response[columnsList[i]][0])
-  
-          }
-  
-  
-  
-            newArr.push(obj);
-
-          }
-          
-          // console.log(obj)
-
-        
-
-        console.log(newArr)
-
-
-        // console.log(Object.keys(res.data.response));
-
-
-        setColumnData(newData);
-        setRowData(newArr);
-        // setColumnData(res.data.columns);
-
+        setRowData(res.data);
 
       }
 
@@ -177,12 +133,20 @@ const InformaBot = () => {
         setInputText('');
 
         const res = await API.post('/query_csv', reqBody);
-
-        setAnswer(res.data);
+        setAnswer(res.data.response);
         setLoader(false);
 
-        // console.log(res.data);
         
+      }
+
+      const handleSubmit = (e: any) => {
+
+        if (e.key === "Enter") {
+
+          handleClick();
+
+        }
+
       }
 
       
@@ -209,7 +173,7 @@ const InformaBot = () => {
           </div>
 
 
-          <MaterialReactTable enablePagination pageSize={5} columns={columnData} data={rowData}  />
+          <MaterialReactTable columns={columnData} data={rowData}  />
 
           <div className='my-4'>
 
@@ -217,20 +181,9 @@ const InformaBot = () => {
 
                 <div className='overflow-y-auto h-40'>
 
-
-
-                  {/* <div className='my-2'>Hi, How can I help you?</div> */}
                   <div className='my-2'>{query}</div>
 
-                  {/* <div>Lorem</div> */}
                   {loader ? <LoadingDots /> : <div className='bg-gray-100 p-2 rounded-md'>{answer}</div>}
-
-                  {/* {chats.map(v => (
-                    <>
-                      <div className='my-2'>{v.question}</div>
-                      <div className='bg-gray-100 p-2 rounded-md'>{v.answer}</div>
-                    </>
-                  ))} */}
                   
                 </div>
 
@@ -239,7 +192,7 @@ const InformaBot = () => {
             <div className='flex justify-between items-center bg-white p-3 border rounded-md my-4'>
 
               <div className='w-full'>
-                <input type='text' value={inputText} onChange={handleInput} placeholder='Enter your questions here...' className='w-full outline-none' />
+                <input type='text' value={inputText} onKeyDown={handleSubmit} onChange={handleInput} placeholder='Enter your questions here...' className='w-full outline-none' />
               </div>
 
               <div onClick={handleClick}>

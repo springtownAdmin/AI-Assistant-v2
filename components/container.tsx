@@ -36,17 +36,17 @@ const Container: React.FC<ContainerProp> = ({ children, activeId = 1 }) => {
 
         <div className='md:h-screen md:flex w-full'>
 
-            <div className={`hidden md:block w-[20%] transition-all duration-500 py-8 px-2`} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
+            <div className={`hidden md:block ${isHovered ? 'w-[20%]' : 'w-[70px]'} transition-all duration-500 py-8 px-2`} onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
 
                 <div className='flex p-3 mb-3'>
-                    <Image src={SVGS.fullLogo} alt='logo' height={200} width={200} className='' />
+                    <Image src={SVGS.logo} alt='logo' height={30} width={30} className='' />
                 </div>
 
                 <div className='flex flex-col gap-3 justify-between'>
-                    <div onClick={() => goTo(1, '/')} className={`flex gap-4 items-center p-3 cursor-pointer hover:bg-[#d7d7d7] rounded-lg transition-all duration-200 text-[#808080] ${active === 1 && 'bg-[#d7d7d7]'}`}><Robot size={25} /> RAG </div>
-                    <div onClick={() => goTo(2, '/informabot')} className={`flex gap-4 p-3 cursor-pointer hover:bg-[#d7d7d7] rounded-lg transition-all duration-200 text-[#808080] ${active === 2 && 'bg-[#d7d7d7]'}`}><BarChartFill size={25} /> InformaBot</div>
-                    <div  className={`flex gap-4 p-3 cursor-pointer hover:bg-[#d7d7d7] rounded-lg transition-all duration-200 text-[#808080] ${active === 3 && 'bg-[#d7d7d7]'}`}><CardText size={25} /> Meeting Summarizer</div>
-                    <div  className={`flex gap-4 p-3 cursor-pointer hover:bg-[#d7d7d7] rounded-lg transition-all duration-200 text-[#808080] ${active === 4 && 'bg-[#d7d7d7]'}`}><EnvelopeFill size={25} /> Email Generator</div>
+                    <div onClick={() => goTo(1, '/')} className={`flex gap-4 items-center p-3 cursor-pointer hover:bg-[#d7d7d7] whitespace-nowrap rounded-lg transition-all duration-200 text-[#808080] ${active === 1 && 'bg-[#d7d7d7]'}`}><Robot size={25} /> { isHovered && 'RAG'} </div>
+                    <div onClick={() => goTo(2, '/informabot')} className={`flex gap-4 p-3 cursor-pointer hover:bg-[#d7d7d7] whitespace-nowrap rounded-lg transition-all duration-200 text-[#808080] ${active === 2 && 'bg-[#d7d7d7]'}`}><BarChartFill size={25} /> { isHovered && 'InformaBot'}</div>
+                    <div className={`flex gap-4 p-3 cursor-pointer hover:bg-[#d7d7d7] rounded-lg transition-all duration-200 whitespace-nowrap text-[#808080] ${active === 3 && 'bg-[#d7d7d7]'}`}><CardText size={25} /> { isHovered && 'Meeting Summarizer'}</div>
+                    <div className={`flex gap-4 p-3 cursor-pointer hover:bg-[#d7d7d7] rounded-lg transition-all duration-200 whitespace-nowrap text-[#808080] ${active === 4 && 'bg-[#d7d7d7]'}`}><EnvelopeFill size={25} />{ isHovered && 'Email Generator'}</div>
                 </div>
 
             </div>
